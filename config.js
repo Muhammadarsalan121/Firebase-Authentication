@@ -1,7 +1,5 @@
 
- 
- 
-  
+  import { getFirestore } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-firestore.js";
    // Import the functions you need from the SDKs you need
    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-app.js";
    import { getAuth } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-auth.js";
@@ -23,3 +21,6 @@
    // Initialize Firebase
    const app = initializeApp(firebaseConfig);
  export const auth = getAuth(app);
+
+ export const db = getFirestore(app);
+
