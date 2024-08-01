@@ -12,28 +12,31 @@
         p{
          
             font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-            font-size: 50px;
+            font-size: 100px;
         }
-        .div-1{
-            text-align: center;
-        }
-        .div-2{
-            text-align: center;
-        }
+       ul{
+        
+        font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            font-size: 35px;
+       }
        #logout-btn{
-            padding: 23px;
-            width: 200px;
-     border-radius: 30px;
-     cursor: pointer;
-        }
-        #btn-1{
-
             padding: 20px;
             width: 150px;
      border-radius: 30px;
      cursor: pointer;
         }
+        #btn-1{
+
+            padding: 15px;
+            width: 100px;
+     border-radius: 30px;
+     cursor: pointer;
+        }
       input{
+        padding: 10px;
+        text-align: center;
+      }
+     select{
         padding: 10px;
         text-align: center;
       }
@@ -47,6 +50,11 @@
         <form id="form">
             <div>
                 <input type="text" placeholder="Enter the data" id="input">
+                <select id="select">
+                    <option value="karachi">karachi</option>
+                    <option value="lahore">lahore</option>
+                    <option value="islamabad">islamabad</option>
+                </select>
             <button type="submit" id="btn-1">Add</button>
             </div>
         </form>
