@@ -1,5 +1,15 @@
 import { signOut ,  onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-auth.js";
-import { collection, addDoc, getDocs, doc, deleteDoc,updateDoc,Timestamp,} from "https://www.gstatic.com/firebasejs/10.12.4/firebase-firestore.js"; 
+import
+ { collection,
+   addDoc,
+  getDocs,
+  doc,
+  deleteDoc,
+  updateDoc,
+  Timestamp,
+  query,
+  where,
+  orderBy,} from "https://www.gstatic.com/firebasejs/10.12.4/firebase-firestore.js"; 
 import { auth, db } from "./config.js";
 
 
@@ -8,8 +18,27 @@ const logoutbtn = document.querySelector('#logout-btn');
 const form = document.querySelector('#form');
 const ul = document.querySelector('#ul')
 const select = document.querySelector("#select");
+const citiesBtn = document.querySelectorAll(".cities-btn");
+const reset = document.querySelector(".reset");
 
-const arr = []
+let arr = []
+
+citiesBtn.forEach((btn) => {
+  btn.addEventListener("click", async (event) => {
+    arr = [];
+    console.log(event.target.innerHTML);
+    const inputRef = collection(db, "User Data");
+    const q = query(inputRef, where("city", "==", event.target.innerHTML),
+      orderBy("time", "desc")
+    );
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((doc) => {
+      arr.push({ ...doc.data(), id: doc.id });
+    });
+    console.log(arr);
+    renderValue();
+  });
+});
 
 
 // const auth = getAuth();
@@ -31,9 +60,12 @@ logoutbtn.addEventListener("click" , ()=>{
       });
       
 })
+reset.addEventListener("click", getData);
 
 async function getData(){
-  const querySnapshot = await getDocs(collection(db, "User Data"));
+  arr = [];
+  const q = query(collection(db, "User Data"), orderBy("time", "desc"));
+  const querySnapshot = await getDocs(q);
   querySnapshot.forEach((doc) => {
     arr.push({ ...doc.data(), id: doc.id });
   });
@@ -55,10 +87,16 @@ function renderValue(){
     <button class="deleteBtn">Delete</button>
         <button class="editBtn">Edit</button>
     </li>
+    <p>${item.time ? item.time.toDate() : "no time"}</p>
+        <hr/>
     `
   });
-  const deleteBtn = document.querySelectorAll(".deleteBtn");
+
+
+const deleteBtn = document.querySelectorAll(".deleteBtn");
 const editBtn = document.querySelectorAll(".editBtn");
+
+
   deleteBtn.forEach((btn01, index) => {
     btn01.addEventListener("click", async () => {
       console.log(arr[index]);
